@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            color: black;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: calc(100% - 20%);
+            max-width: 1200px;
+            width: 80%;
+            transform: translateY(30%);
+            top: 50%;
+            color: #4d0f8a;
+            font-weight: bold;
+            margin: auto;
+            border-radius: 15px;
+        }
+        .highlight {
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 22px;
+            color: #4d0f8a;
+            text-align: center;
+            width: 100%;
+        }
+        .underline {
+            display: inline-block;
+            position: relative;
+            font-weight: bold;
+        }
+        .underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            height: 2px;
+            background: #4d0f8a;
+            width: 100%;
+            animation: underlineAnimation 15s infinite;
+        }
+        @keyframes underlineAnimation {
+            0%, 10% { width: 0; }
+            10%, 40% { width: 100%; }
+            40%, 60% { width: 100%; }
+            60%, 90% { width: 0; }
+            90%, 100% { width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="highlight">
+            <span onclick="goToAddText()">Добавить текст</span>
+            <span> / </span>
+            <span onclick="goToStatistics()">Статистика</span>
+            <span> / </span>
+            <span onclick="goToAskQ()">Задать вопрос</span>
+            <span> / </span>
+            <span onclick="goToTakeTest()">Пройти тест</span>
+        </div>
+    </div>
+    <div class="container" id="readBooksCounter">
+        Количество прочитанных книг: <span id="readBooksCount">0</span>
+    </div>
+    <footer style="height: 5vh; background-color: #4d0f8a; color: white; display: flex; align-items: center; justify-content: space-around; text-align: center; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 80%; font-size: 16px;">
+        <p>Проект на Сириус ИИ </p>
+        <p>Команда: ALT</p>
+        <p>2024 год</p>
+    </footer>
+    <script>
+        function goToAddText() {
+            window.location.href = 'addtext.html';
+        }
+        function goToStatistics() {
+            window.location.href = 'statistics.html';
+        }
+        function goToAskQ() {
+            window.location.href = 'askquestion.html';
+        }
+        function goToTakeTest() {
+            window.location.href = 'test.html';
+        }
+
+        function displayReadBooksCount() {
+            // Получаем количество книг из локального хранилища
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let readBooksCount = books.length; // Количество добавленных книг
+            document.getElementById('readBooksCount').textContent = readBooksCount;
+        }
+
+        window.onload = displayReadBooksCount; // Вызываем функцию при загрузке страницы
+    </script>
+</body>
+</html>

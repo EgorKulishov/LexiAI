@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои цели:</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        a {
+            color: #4d0f8a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #4d0f8a;
+        }
+
+        .green-panel {
+            background-color: #4d0f8a;
+            width: 80%;
+            height: 12vh;
+            position: relative;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .top-menu {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .top-menu button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffffff;
+            color: #000000;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .top-menu button:hover {
+            background-color: #3c0070; /* Темнее при наведении */
+            color: #ffffff;
+        }
+
+        .goal-section {
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .goal-line {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #4d0f8a;
+            margin: 20px 0;
+        }
+
+        .goal-line input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 5px;
+            color: #000000;
+        }
+
+        .add-goal {
+            background-color: #4d0f8a;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .add-goal:hover {
+            background-color: #3c0070;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var menuBar = document.getElementById('menuBar');
+            menuBar.classList.toggle('active');
+        }
+
+        function loadBooks() {
+            const goalSection = document.getElementById('goalSection');
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            books.forEach(book => {
+                const goalLine = document.createElement('div');
+                goalLine.className = 'goal-line';
+                goalLine.innerHTML = `<input type="text" value="${book.title}" readonly>`;
+                goalSection.appendChild(goalLine);
+            });
+        }
+        window.onload = loadBooks;
+    </script>
+</head>
+
+<body>
+    <div class="green-panel">
+        <h2><br>Мои цели:</h2>
+        <div class="top-menu">
+            <a href="my_library.html"><button>Мои книги</button></a>
+            <button>Мои цели</button>
+        </div>
+    </div>
+    <div class="goal-section" id="goalSection">
+        <button class="add-goal" onclick="addGoal()">Добавить цель</button>
+    </div>
+    <footer style="height: 5vh; background-color: #4d0f8a; color: white; display: flex; align-items: center; justify-content: space-around; text-align: center; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 80%; font-size: 16px;">
+        <p>Проект на Сириус ИИ </p>
+        <p>Команда: ALT</p>
+        <p>2024 год</p>
+    </footer>
+</body>
+</html>

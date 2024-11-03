@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя библиотека</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        a {
+            color: #4d0f8a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #4d0f8a;
+        }
+
+        .green-panel {
+            background-color: #4d0f8a;
+            width: 80%;
+            height: 4vh;
+            position: relative;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-menu {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .top-menu button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffffff;
+            color: #000000;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .top-menu button:hover {
+            background-color: #3c0070; 
+            color: #ffffff;
+        }
+
+        .highlight {
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 22px;
+            color: #4d0f8a;
+        }
+
+        .highlight span {
+            cursor: pointer;
+        }
+
+        .underline {
+            display: inline-block;
+            position: relative;
+            font-weight: bold; 
+        }
+
+        .underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; 
+            height: 2px;
+            background: #4d0f8a; 
+            width: 100%;
+            animation: underlineAnimation 15s infinite; 
+        }
+
+        @keyframes underlineAnimation {
+            0%, 10% {
+                width: 0;
+            }
+            10%, 40% {
+                width: 100%;
+            }
+            40%, 60% {
+                width: 100%;
+            }
+            60%, 90% {
+                width: 0;
+            }
+            90%, 100% {
+                width: 0;
+            }
+        }
+
+        .book-container {
+            width: 100%;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-button {
+            cursor: pointer;
+            color: #4d0f8a;
+            font-weight: bold;
+        }
+
+        .test-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #4d0f8a;
+            border-radius: 5px;
+            background-color: #e8f0fe;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var menuBar = document.getElementById('menuBar');
+            menuBar.classList.toggle('active');
+        }
+        function goToLibrary() {
+            window.location.href = 'my_library.html';
+        }
+        function goToStatistics() {
+            window.location.href = 'statistics.html';
+        }
+        function goToAddText() {
+            window.location.href = 'addtext.html';
+        }
+        function goToAskQ() {
+            window.location.href = 'askquestion.html';
+        }
+
+        function displayBooks() {
+            const bookList = JSON.parse(localStorage.getItem('books')) || [];
+            const booksContainer = document.getElementById('booksContainer');
+
+            bookList.forEach((book) => {
+                const bookDiv = document.createElement('div');
+                bookDiv.className = 'book-container';
+                bookDiv.innerHTML = `
+                    <div class="book-title">
+                        <span>${book.title}</span>
+                        <span class="test-button" onclick="toggleTestContent(this)">Пройти тест &#x25BC;</span>
+                    </div>
+                    <div class="test-content">
+                        <p>Тест для книги "${book.title}"</p>
+                        <!-- Здесь можно добавить тест или дополнительные элементы -->
+                    </div>
+                `;
+                booksContainer.appendChild(bookDiv);
+            });
+        }
+
+        function toggleTestContent(button) {
+            const testContent = button.parentElement.nextElementSibling;
+            testContent.style.display = testContent.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body onload="displayBooks()">
+    <header>
+    </header>
+    <div class="green-panel">
+        <div class="top-menu">
+            <button onclick="goToLibrary()">Мои книги</button>
+            <a href="purposes.html"><button>Мои цели</button></a>
+        </div>
+    </div>
+    <div class="highlight">
+        <span onclick="goToLibrary()">Добавить книгу</span>
+        <span> / </span>
+        <span onclick="goToAskQ()">Задать вопрос</span>
+        <span> / </span>
+        <span onclick="goToStatistics()">Статистика</span>
+        <span> / </span>
+        <span class="underline">Пройти тест</span>
+        <span> / </span>
+        <span onclick="goToAddText()">Добавить текст</span>
+    </div>
+
+    <div id="booksContainer" style="width: 80%; margin-top: 20px;"></div>
+    
+    <footer style="height: 5vh; background-color: #4d0f8a; color: white; display: flex; align-items: center; justify-content: space-around; text-align: center; position: absolute; bottom: 0px; width: 80%; font-size: 16px;">
+        <p>Проект на Сириус ИИ </p>
+        <p>Команда: ALT</p>
+        <p>2024 год</p>
+    </footer>
+</body>
+</html>
