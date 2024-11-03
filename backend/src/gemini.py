@@ -8,7 +8,7 @@ import time
 # промт к gemini
 
 promtt = ''
-my_api = ['AIzaSyBljdPtZU8bjOppt5wAkRl7de5_QM-LdNo'] #нужен gemini apikey
+my_api = ['YOUR_API_KEY'] #нужен gemini apikey
 
 #запрос к gemini через rest api
 async def request_to_model(promt, api_id, model = 0):
